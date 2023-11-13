@@ -1,5 +1,5 @@
 # perforce-blender-addon
-A Blender 3.0+ addon to integrate with a Perforce Helix workspace. "p4" must be installed.
+A Blender 3.0+ addon that allows Perforce users to check-in / check-out files with a Blender UI panel. "p4" must be installed.
 
 ## Installation
 Download the Python file and importing it to Blender as an add-on.
