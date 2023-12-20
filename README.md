@@ -4,19 +4,6 @@ A Blender 3.0+ addon that allows Perforce users to check-in / check-out files wi
 ## Installation
 Download the Python file and import it to Blender as an add-on.
 
-## Features
-
-* Provide a side-panel GUI with plain-English buttons for **common p4 commands**
-* Warn users if they try to check-out a file that **someone else has locked**
-* Warn users if their file is **out of date**
-* (Windows only) Warn users when they close a file that has been added or checked-out, but **not submitted**.
-  * This helps remind users to submit files after they finish.
-* UI panel dynamically enables and disables buttons depending on `p4 fstat` info
-  * For example, the `p4 add` button is disabled for already-tracked files
-* UI panel **hides itself** when file is unsaved
-* **Manual unlock tool** for locked files which are copied outside a Perforce workspace
-* No significant impact on Blender performance - does not query Perforce server until the user clicks Status check button
-
 ## Screenshots
 
 ![](./README-img/sc1.png)
@@ -38,6 +25,19 @@ Download the Python file and import it to Blender as an add-on.
 ![](./README-img/sc7.png)
 ![](./README-img/sc8.png)
 ![](./README-img/sc9.png)
+
+## Features
+
+* Provide a side-panel GUI with plain-English buttons for **common p4 commands**
+* Warn users if they try to check-out a file that **someone else has locked**
+* Warn users if their file is **out of date**
+* (Windows only) Warn users when they close a file that has been added or checked-out, but **not submitted**.
+  * This helps remind users to submit files after they finish.
+* UI panel dynamically enables and disables buttons depending on `p4 fstat` info
+  * For example, the `p4 add` button is disabled for already-tracked files
+* UI panel **hides itself** when file is unsaved
+* **Manual unlock tool** for locked files which are copied outside a Perforce workspace
+* No significant impact on Blender performance - does not query Perforce server until the user clicks Status check button
 
 ## Future updates (aspirational)
 
