@@ -1,4 +1,4 @@
-# perforce-blender-addon
+# Perforce Helix integration with Blender 3.0+
 A Blender 3.0+ addon that allows Perforce users to check-in / check-out files with a Blender UI panel. Perforce Helix (`p4` and `p4v`) must be installed.
 
 ## Installation
