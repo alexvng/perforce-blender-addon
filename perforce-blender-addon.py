@@ -354,7 +354,6 @@ class P4_OT_checkout(bpy.types.Operator):
 class P4_OT_submit(bpy.types.Operator):
     bl_label = "2. Upload new version (may lag)"
     bl_idname = "p4.submit"
-    bl_options = {'INTERNAL'}
     bl_description = "Upload a new version of this file to the server.\nYour edit locks will release, allowing others to edit this file"
 
     @classmethod
