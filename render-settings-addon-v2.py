@@ -6,7 +6,7 @@ import bpy
 bl_info = {
     "name": "WEAVER Render Settings Manager",
     "author": "Alex Vuong",
-    "version": (1, 0, 3),
+    "version": (1, 0, 4),
     "blender": (4, 0, 0),
     "location": "N-panel in 3D viewport",
     "category": "Generic"
@@ -47,8 +47,10 @@ class OBJECT_PT_weaver_panel_ui(bpy.types.Panel):
 
     def draw(self, context):
         layout = self.layout
+        layout.operator("weaver.set_alt_render_settings")
         layout.operator("weaver.set_render_settings")
         layout.operator("weaver.set_playblast_settings")
+        
 
 class WEAVER_OT_set_playblast_settings(bpy.types.Operator):
     bl_label = "Set playblast settings"
@@ -76,6 +78,44 @@ class WEAVER_OT_set_render_settings(bpy.types.Operator):
         shotname = shotname[0]
         viewlayername = bpy.context.view_layer.name
         bpy.context.scene.render.filepath = f"//../../../Renders/{shotname}/{viewlayername}_"
+
+        if "editing" in viewlayername:
+            show_panel_helper(f"Are you sure you want to render \"{viewlayername}\"?")
+
+        if "ALL" in viewlayername or "GP" in viewlayername:
+            bpy.context.view_layer.use_pass_z = True
+        else:
+            bpy.context.view_layer.use_pass_z = False
+
+        bpy.context.scene.render.image_settings.file_format = 'FFMPEG'
+        bpy.context.scene.render.use_render_cache = False
+        bpy.context.scene.render.use_file_extension = True
+        bpy.context.scene.render.ffmpeg.format = 'QUICKTIME'
+        bpy.context.scene.render.ffmpeg.codec = 'QTRLE'
+        bpy.context.scene.render.ffmpeg.ffmpeg_preset = 'BEST'
+        bpy.context.scene.render.use_compositing = False
+        bpy.context.scene.render.use_sequencer = False
+        bpy.context.scene.render.image_settings.color_mode = 'RGBA'
+        bpy.context.scene.render.film_transparent = True
+        bpy.context.view_layer.use = True
+        bpy.context.scene.render.use_single_layer = True
+        bpy.context.scene.eevee.use_bloom = True
+        bpy.context.scene.render.ffmpeg.audio_codec = 'NONE'
+
+        return {'FINISHED'}
+    
+class WEAVER_OT_set_alt_render_settings(bpy.types.Operator):
+    bl_label = "Set post-showcase render settings"
+    bl_idname = "weaver.set_alt_render_settings"
+    bl_description = "Set render to Quicktime MOV settings, set output path to //../../../Renders/ShotNumber/ViewLayer_ALT_"
+
+    def execute(self, context):
+        filename = bpy.path.basename(bpy.context.blend_data.filepath)
+        filename = filename.split('_')
+        shotname = filename[1].split('.')
+        shotname = shotname[0]
+        viewlayername = bpy.context.view_layer.name
+        bpy.context.scene.render.filepath = f"//../../../Renders/{shotname}/{viewlayername}_ALT_"
 
         if "editing" in viewlayername:
             show_panel_helper(f"Are you sure you want to render \"{viewlayername}\"?")
@@ -134,7 +174,8 @@ classes = (
     WEAVER_OT_set_render_settings,
     WEAVER_OT_playblast_current_viewlayer,
     WEAVER_OT_popup,
-    WEAVER_OT_set_playblast_settings
+    WEAVER_OT_set_playblast_settings,
+    WEAVER_OT_set_alt_render_settings
 )
 
 def show_panel_helper(text):
